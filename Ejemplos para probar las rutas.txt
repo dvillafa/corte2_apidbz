@@ -24,7 +24,7 @@ json
 •	Respuesta: Al iniciar sesión correctamente, recibirás un token JWT en la respuesta que debes usar para las solicitudes que requieren autenticación (p. ej., creación, actualización o eliminación de personajes).
 3. Eliminar un usuario
 •	Método: DELETE
-•	URL: http://localhost:3000/api/auth/delete/:id (Reemplaza :id por el ID del usuario a eliminar, que puedes obtener al registrarlo o al listar los usuarios).
+•	URL: http://localhost:3000/api/auth/delete/:id (Reemplaza :id por el ID del usuario a eliminar, que puedes obtener en MongoDB.
 •	Headers:
 o	Authorization: Incluye el token JWT en el formato Bearer <tu_token_jwt> (El token lo obtienes al iniciar sesión).
 •	Body: Ninguno
