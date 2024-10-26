@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Socket.IO Test</title>
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Test de Socket.IO</h1>
+
+  <!-- Sección para mostrar mensajes en la interfaz -->
+  <div id="messages"></div>
+
+  <script>
+    const socket = io('http://localhost:3000');
+
+    const messagesDiv = document.getElementById('messages');
+
+    // Función para agregar mensajes a la interfaz
+    function addMessage(message) {
+      const messageElement = document.createElement('p');
+      messageElement.textContent = message;
+      messagesDiv.appendChild(messageElement);
+    }
+
+    socket.on('connect', () => {
+      console.log('Conectado al servidor');
+      addMessage('Conectado al servidor');
+
+      // Enviar mensaje al servidor
+      socket.emit('message', 'Hola desde el cliente');
+    });
+
+    // Escuchar evento 'newCharacter' cuando se cree un nuevo personaje
+    socket.on('newCharacter', (data) => {
+      console.log('Nuevo personaje creado:', data);
+      addMessage(`Nuevo personaje creado: ${data.name} (ID: ${data._id})`);
+    });
+
+    // Escuchar evento 'updatedCharacter' cuando un personaje sea actualizado
+    socket.on('updatedCharacter', (data) => {
+      console.log('Personaje actualizado:', data);
+      addMessage(`Personaje actualizado: ${data.name} (ID: ${data._id})`);
+    });
+
+    // Escuchar evento 'deletedCharacter' cuando un personaje sea eliminado
+    socket.on('deletedCharacter', (data) => {
+      console.log('Personaje eliminado:', data);
+      addMessage(`Personaje eliminado: (ID: ${data.id})`);
+    });
+    
+    socket.on('disconnect', () => {
+      console.log('Desconectado del servidor');
+      addMessage('Desconectado del servidor');
+    });
+  </script>
+</body>
+</html>
